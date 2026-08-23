@@ -92,7 +92,7 @@ export const profile: Profile = {
   profileImageAlt: "홍길동 프로필 일러스트",
   email: "gildong.hong.work@example.com",
   location: "서울·경기 (재택 근무 가능)",
-  siteUrl: "https://gildong-resume.vercel.app",
+  siteUrl: "https://resume-example.leejongwoo.com",
   links: [],
   seo: {
     title: "홍길동 — 경영지원 · 총무/인사 사무 이력서",
