@@ -1,0 +1,148 @@
+@import "tailwindcss";
+@import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+
+/*
+  디자인 토큰 — 무채색 고정. 사이트 UI에는 포인트 컬러를 쓰지 않습니다.
+  --color-point 는 데모 스크린샷(SVG) 내부에서만 사용하는 단 하나의 포인트 컬러입니다.
+*/
+@theme inline {
+  --color-ground: #f1f3f6;
+  --color-surface: #ffffff;
+  --color-ink: #14161b;
+  --color-ink-soft: #2f333b;
+  --color-muted: #59606b;
+  --color-faint: #656c78;
+  --color-line: #dfe2e9;
+  --color-line-strong: #c3c7d0;
+  --color-point: #2f5bea;
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, "Segoe UI", "Apple SD Gothic Neo",
+    "Noto Sans KR", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, "Cascadia Code",
+    monospace;
+}
+
+html {
+  color-scheme: light only;
+}
+
+body {
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.003em;
+}
+
+::selection {
+  background: #dbe1ea;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+@keyframes page-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fade-in {
+  animation: page-fade 0.6s ease-out both;
+}
+
+/* 스크린샷 확대 보기 (<dialog>) */
+.lightbox {
+  background: transparent;
+  padding: 0;
+  border: 0;
+  max-width: none;
+  max-height: none;
+  width: 100vw;
+  height: 100vh;
+}
+
+.lightbox::backdrop {
+  background: rgba(20, 22, 27, 0.78);
+}
+
+.lightbox[open] {
+  animation: page-fade 0.2s ease-out both;
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .lightbox[open] {
+    animation: none;
+  }
+}
+
+/* 브라우저 인쇄 / PDF 저장 (Cmd+P) — 화면에 보이는 그대로 출력하고, 버튼·메뉴 같은 조작 요소만 숨깁니다 */
+@media print {
+  /* 여백을 0으로 두면 브라우저가 여백에 찍는 날짜·제목·URL 머리글/바닥글이 사라집니다.
+     본문 여백은 body padding 으로 대신 줍니다. */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  /* A4 폭에 데스크톱 레이아웃이 들어가도록 약간 축소 */
+  html {
+    zoom: 0.78;
+  }
+
+  body {
+    padding: 14mm 12mm 16mm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .fade-in {
+    animation: none;
+  }
+
+  li,
+  figure {
+    break-inside: avoid;
+  }
+
+  /* grid 섹션은 Chrome 인쇄에서 페이지를 넘어 나뉘지 않으므로, 인쇄 시에만 float 레이아웃으로 */
+  .section-grid {
+    display: block;
+  }
+
+  .section-grid::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .section-label {
+    float: left;
+    width: 150px;
+  }
+
+  .section-body {
+    margin-left: 190px;
+  }
+
+  .tool-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

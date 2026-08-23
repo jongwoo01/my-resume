@@ -1,0 +1,43 @@
+import Image from "next/image";
+import Link from "next/link";
+import type { AiTool } from "@/data/tools";
+import { CATEGORY_LABELS } from "@/lib/tools";
+
+export default function ToolCard({ tool }: { tool: AiTool }) {
+  return (
+    <Link
+      href={`/tools/${tool.slug}`}
+      className="group flex flex-col break-inside-avoid bg-surface transition-transform duration-200 hover:-translate-y-[3px]"
+    >
+      <div className="relative aspect-square overflow-hidden border-b border-line bg-ground">
+        <Image
+          src={tool.result.mainImage.src}
+          alt={tool.result.mainImage.alt}
+          fill
+          unoptimized
+          sizes="(max-width: 520px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+        />
+      </div>
+      <div className="flex flex-1 flex-col gap-[7px] px-4 pb-5 pt-4">
+        <h3 className="text-[1.02rem] font-[620] tracking-[-0.015em]">
+          {tool.title}
+        </h3>
+        <p className="flex-1 break-keep text-[0.86rem] leading-[1.55] text-muted">
+          {tool.tagline}
+        </p>
+        <div className="mt-1 flex flex-wrap items-center font-mono text-[0.68rem] tracking-[0.02em] text-faint">
+          <span>{CATEGORY_LABELS[tool.category]}</span>
+          <span className="mx-[7px] text-line-strong">·</span>
+          <span>{tool.period}</span>
+          {tool.liveUrl && (
+            <>
+              <span className="mx-[7px] text-line-strong">·</span>
+              <span className="text-ink">라이브 ↗</span>
+            </>
+          )}
+        </div>
+      </div>
+    </Link>
+  );
+}

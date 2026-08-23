@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="t">
+  <title id="t">단정한 복장의 상반신 일러스트 (가상 인물)</title>
+  <!-- 배경 -->
+  <rect width="800" height="800" fill="#f1f3f6"/>
+  <rect x="0" y="560" width="800" height="240" fill="#e6e9ee"/>
+  <!-- 목 -->
+  <rect x="356" y="400" width="88" height="110" rx="28" fill="#d9c2ae"/>
+  <!-- 재킷 (어깨~가슴) -->
+  <path d="M 120 800 C 120 620 240 545 330 520 L 400 600 L 470 520 C 560 545 680 620 680 800 Z" fill="#2f333b"/>
+  <!-- 셔츠 V 영역 -->
+  <path d="M 330 520 L 400 660 L 470 520 L 440 500 L 400 560 L 360 500 Z" fill="#ffffff"/>
+  <!-- 셔츠 칼라 -->
+  <path d="M 338 492 L 400 580 L 372 500 Z" fill="#ffffff"/>
+  <path d="M 462 492 L 400 580 L 428 500 Z" fill="#ffffff"/>
+  <path d="M 338 492 L 372 500 L 400 580 L 352 520 Z" fill="#dfe2e9"/>
+  <path d="M 462 492 L 428 500 L 400 580 L 448 520 Z" fill="#dfe2e9"/>
+  <!-- 재킷 라펠 -->
+  <path d="M 330 520 L 400 660 L 396 800 L 300 800 L 300 560 Z" fill="#14161b" opacity="0.25"/>
+  <path d="M 470 520 L 400 660 L 404 800 L 500 800 L 500 560 Z" fill="#14161b" opacity="0.25"/>
+  <!-- 얼굴 -->
+  <ellipse cx="400" cy="306" rx="118" ry="136" fill="#e9d5c3"/>
+  <!-- 귀 -->
+  <ellipse cx="284" cy="310" rx="16" ry="24" fill="#e0c7b2"/>
+  <ellipse cx="516" cy="310" rx="16" ry="24" fill="#e0c7b2"/>
+  <!-- 머리카락 (단정한 짧은 머리) -->
+  <path d="M 282 300 C 270 190 320 140 400 140 C 480 140 530 190 518 300 C 514 262 478 240 436 236 C 396 232 360 240 334 256 C 310 270 292 284 282 300 Z" fill="#14161b"/>
+  <path d="M 282 300 C 278 330 280 350 284 360 L 292 300 Z" fill="#14161b"/>
+  <path d="M 518 300 C 522 330 520 350 516 360 L 508 300 Z" fill="#14161b"/>
+  <!-- 눈썹 -->
+  <path d="M 340 292 C 352 284 372 284 384 290" stroke="#2f333b" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M 416 290 C 428 284 448 284 460 292" stroke="#2f333b" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- 눈 -->
+  <ellipse cx="362" cy="322" rx="9" ry="10" fill="#14161b"/>
+  <ellipse cx="438" cy="322" rx="9" ry="10" fill="#14161b"/>
+  <!-- 코 -->
+  <path d="M 398 330 C 394 350 390 362 396 370 L 406 370" stroke="#d2b49c" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- 입 (옅은 미소) -->
+  <path d="M 374 398 C 388 410 412 410 426 398" stroke="#b88a72" stroke-width="5" stroke-linecap="round" fill="none"/>
+</svg>
