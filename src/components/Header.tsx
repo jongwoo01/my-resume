@@ -12,9 +12,7 @@ export default function Header() {
           className="text-[0.95rem] font-[640] tracking-[-0.01em] text-ink"
         >
           {profile.name}
-          <span className="ml-1.5 font-medium text-faint">
-            {profile.englishName}
-          </span>
+          {profile.englishName && <span className="ml-1.5 font-medium text-faint">{profile.englishName}</span>}
         </Link>
         <div className="flex items-center gap-4 md:gap-6">
           <nav

@@ -21,7 +21,7 @@ export const FILTERS: { key: FilterKey; label: string }[] = [
 ];
 
 // 툴이 3개 이상일 때만 필터 표시 (PRD P1)
-export const SHOW_FILTERS = tools.length >= 3;
+export const SHOW_FILTERS = tools.length >= 3 && tools.some((t) => t.status === "complete");
 
 // 노출 순서: featured 먼저, 그다음 완성 연월 최신순
 export const orderedTools: AiTool[] = [...tools].sort((a, b) => {

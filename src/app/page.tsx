@@ -16,11 +16,10 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: profile.name,
-    alternateName: profile.englishName,
-    url: profile.siteUrl,
     email: `mailto:${profile.email}`,
     jobTitle: profile.role,
-    image: `${profile.siteUrl}${profile.profileImage}`,
+    ...(profile.englishName ? { alternateName: profile.englishName } : {}),
+    ...(profile.siteUrl ? { url: profile.siteUrl } : {}),
   };
 
   return (

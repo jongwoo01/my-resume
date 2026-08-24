@@ -5,7 +5,7 @@ import { profile } from "@/data/resume";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(profile.siteUrl),
+  ...(profile.siteUrl ? { metadataBase: new URL(profile.siteUrl) } : {}),
   title: profile.seo.title,
   description: profile.seo.description,
   alternates: { canonical: "/" },

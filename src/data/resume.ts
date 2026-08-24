@@ -1,345 +1,81 @@
-/*
-  ─────────────────────────────────────────────────────────────────────────────
-  이력서 데이터 — 이 파일과 src/data/tools.ts 두 파일만 수정하면 사이트가 완성됩니다.
-
-  ⚠️  아래 인물·회사·수치·자격·이메일은 전부 가상의 예시 데이터입니다. 본인 정보로 교체하세요.
-
-  작성 규칙
-  - 날짜는 "YYYY.MM" 형식으로 통일하고, 목록은 최신순으로 정렬합니다.
-  - 성과는 결과(result)를 먼저 쓰고, 그 결과를 만든 행동(action)을 뒤에 씁니다.
-      예) result: "월 12시간 걸리던 정산 업무를 2시간으로 단축(83%↓)"
-          action: "반복 계산을 함수와 매크로로 표준화"
-  - 회사·고객 정보는 익명화합니다. ("중견 제조업체 A사", "스타트업 B사")
-  - 면접에서 근거를 설명할 수 없는 과장은 쓰지 않습니다.
-
-  게재 금지 (채용절차법·개인정보 보호)
-  - 휴대전화 번호, 생년월일, 성별, 상세 주소, 주민등록번호, 계좌번호
-  - 가족관계, 재산, 혼인 여부, 현재 연봉
-  - 상세 주소 대신 "근무 가능 지역"만 적습니다.
-  ─────────────────────────────────────────────────────────────────────────────
-*/
-
-export type Profile = {
-  name: string; // 이름
-  englishName: string; // 영문 이름 (헤더 이름 옆 회색 표기)
-  role: string; // 지원 직무 — 한 줄
-  eyebrow: string; // 히어로 최상단 작은 라벨 (직무 키워드 · 로 구분)
-  headline: string[]; // 큰 제목. 배열 원소 하나 = 한 줄
-  lead: string; // 한 줄 자기 정의 (2~3문장)
-  titles: string[]; // 히어로 하단 '—' 로 구분되는 짧은 소개 (경력 연차, 입사 가능 시기 등)
-  profileImage: string; // public/ 기준 경로. 교체 시 정사각형 권장 (예: /profile.jpg)
-  profileImageAlt: string;
-  email: string; // 공개용 이메일 (개인 휴대전화 번호는 적지 않습니다)
-  location: string; // 근무 가능 지역만 (상세 주소 금지)
-  siteUrl: string; // 배포 URL (SEO·sitemap 에 사용). Vercel 배포 후 갱신
-  links: { label: string; href: string }[]; // 연락 섹션 링크 행 (LinkedIn, 블로그 등). 없으면 []
-  seo: { title: string; description: string };
-};
-
+export type Profile = { name: string; englishName?: string; role: string; eyebrow: string; headline: string[]; lead: string; titles: string[]; profileImage: string; profileImageAlt: string; email: string; location: string; siteUrl?: string; links: { label: string; href: string }[]; seo: { title: string; description: string } };
 export type Stat = { value: string; label: string };
 export type Competency = { title: string; evidence: string; tools?: string[] };
 export type EmploymentType = "정규직" | "계약직" | "인턴" | "파견" | "프리랜서";
 export type Bullet = { result: string; action: string };
-export type Experience = {
-  org: string; // 익명화된 회사명
-  orgNote?: string; // 규모·업종 (선택)
-  start: string; // "YYYY.MM"
-  end: string | null; // "YYYY.MM" 또는 null(재직중)
-  role: string; // 부서·직급
-  employmentType: EmploymentType;
-  bullets: Bullet[]; // 주요 성과 2~4개
-};
-export type Education = {
-  school: string;
-  major: string;
-  degree: string;
-  start: string;
-  end: string;
-  note?: string;
-};
-export type Certification = {
-  kind: "자격" | "어학";
-  name: string;
-  score?: string; // 어학 점수·등급
-  issuer: string;
-  date: string; // 취득 "YYYY.MM"
-};
-export type SkillGroup = {
-  category: string;
-  items: { name: string; context: string }[]; // 활용 맥락을 반드시 함께
-};
-export type Activity = {
-  kind: "활동" | "수상";
-  name: string;
-  org: string;
-  start: string;
-  end?: string;
-  result: string; // 한 줄 성과
-};
+export type Experience = { org: string; orgNote?: string; start: string; end: string | null; role: string; employmentType: EmploymentType; bullets: Bullet[] };
+export type Education = { school: string; major: string; degree?: string; start?: string; end: string; note?: string };
+export type Certification = { kind: "자격" | "어학" | "교육"; name: string; score?: string; issuer?: string; date: string };
+export type SkillGroup = { category: string; items: { name: string; context: string }[] };
+export type Activity = { kind: "활동" | "수상"; name: string; org: string; start?: string; end?: string; period?: string; result?: string };
 export type NavItem = { href: string; label: string };
 
-// ✏️ 여기를 수정하세요 — 기본 프로필
 export const profile: Profile = {
-  name: "홍길동",
-  englishName: "Hong Gildong",
-  role: "경영지원 · 총무/인사 사무",
-  eyebrow: "경영지원 · 총무 · 인사 사무 · AI 업무 자동화",
-  headline: ["반복 업무를 줄이고,", "숫자로 증명합니다."],
-  lead:
-    "경영지원 사무 3년 6개월, 홍길동입니다. 정산·비품·인사 서류처럼 매달 반복되는 일을 표준화하고, 손이 많이 가는 부분은 직접 만든 자동화 툴로 해결해 왔습니다. 일이 제때 돌아가게 만드는 데서 가장 큰 보람을 느낍니다.",
-  titles: ["경영지원 3년 6개월", "AI 업무툴 3종 제작·운영", "2026.09 입사 가능"],
-  profileImage: "/profile.svg",
-  profileImageAlt: "홍길동 프로필 일러스트",
-  email: "gildong.hong.work@example.com",
-  location: "서울·경기 (재택 근무 가능)",
-  siteUrl: "https://resume-example.leejongwoo.com",
-  links: [],
-  seo: {
-    title: "홍길동 — 경영지원 · 총무/인사 사무 이력서",
-    description:
-      "경영지원 사무 3년 6개월. 정산·비품·인사 업무를 표준화하고, 직접 만든 AI 업무 자동화 툴 3종으로 연 180시간을 절감한 사무직 지원자 홍길동의 이력서입니다.",
-  },
+  name: "이에듀", role: "교육운영 사무직", eyebrow: "교육운영 · 일정 관리 · 수강생 관리",
+  headline: ["교육 운영을 꼼꼼하게", "지원합니다."],
+  lead: "교육 일정과 수강생 정보를 꼼꼼하게 관리하고, 원활한 교육 진행을 지원하는 교육운영 사무 담당자를 목표로 합니다.",
+  titles: ["교육운영 인턴 경험", "문서·명단·일정 정리"],
+  profileImage: "/profile.jpg", profileImageAlt: "이에듀 프로필 사진", email: "edu.lee@example.com", location: "서울특별시",
+  links: [{ label: "개인 포트폴리오", href: "https://example-edu-lee-example.notion.site" }],
+  seo: { title: "이에듀 — 교육운영 사무직 이력서", description: "교육 일정과 수강생 정보를 관리하고 원활한 교육 진행을 지원하는 교육운영 사무직 지원자 이에듀의 이력서입니다." },
 };
 
-// ✏️ 대표 성과 — 수치 중심 2~4개 (히어로 하단)
 export const stats: Stat[] = [
-  { value: "83%↓", label: "월 정산 업무 시간 (12시간 → 2시간)" },
-  { value: "1% 미만", label: "비용 증빙 누락률 (9% → )" },
-  { value: "180시간", label: "직접 만든 툴로 절감한 연간 업무 시간" },
-  { value: "3년 6개월", label: "경영지원 실무 경력" },
+  { value: "32명", label: "비교과 프로그램 참여 경험 설문 대상" },
+  { value: "24시간", label: "교육기관 행정 실무 과정 수료" },
 ];
 
-// ✏️ 핵심 역량 — 직무와 직접 관련된 3~5개. 각 역량에 수치·사례·도구 근거
 export const competencies: Competency[] = [
-  {
-    title: "정산·경비 관리",
-    evidence:
-      "월 400건 법인카드·지출결의 대사를 2시간 안에 마감합니다. 체크리스트와 자동 알림으로 증빙 누락률을 9%에서 1% 미만으로 낮췄습니다.",
-    tools: ["Excel", "Google Sheets", "더존 Smart A"],
-  },
-  {
-    title: "총무·자산 관리",
-    evidence:
-      "연 2회 전사 비품 실사를 5일에서 2일로 단축했습니다. 300명 규모 사무실 이전을 일정 내 완료하고 예산 8%를 절감했습니다.",
-    tools: ["바코드 라벨", "재고 대장", "업체 견적 비교"],
-  },
-  {
-    title: "인사 행정·온보딩",
-    evidence:
-      "신규 입사자 서류 처리 리드타임을 3일에서 1일로 줄였습니다. 연 40명 입·퇴사 처리를 오류 0건으로 마감했습니다.",
-    tools: ["그룹웨어", "4대보험 EDI", "온보딩 템플릿"],
-  },
-  {
-    title: "업무 자동화·데이터 정리",
-    evidence:
-      "반복 업무 3종을 직접 자동화해 연 180시간을 절감했습니다. 검증 로직과 승인 단계를 두어 자동화로 인한 실수를 막았습니다.",
-    tools: ["Apps Script", "ChatGPT · Claude", "Python 기초"],
-  },
+  { title: "교육 일정·강의 운영 지원", evidence: "온라인 강의 등록과 강의 일정 확인 업무를 담당했습니다.", tools: ["Google Sheets", "Zoom"] },
+  { title: "수강생 정보·문의 관리", evidence: "수강생 명단 관리, 출결 자료 정리, 수강생 문의 분류 업무를 담당했습니다.", tools: ["Microsoft Excel", "Slack"] },
+  { title: "운영 문서·체크리스트 작성", evidence: "반복 문의 유형을 정리한 공동 확인 문서와 강의 개설 체크리스트를 작성해 사용했습니다.", tools: ["Microsoft Word", "Notion"] },
+  { title: "설문 결과 정리", evidence: "만족도 설문 응답을 Google Sheets로 정리하고 주요 의견을 긍정 의견과 개선 요청으로 구분했습니다.", tools: ["Google Forms", "Google Sheets"] },
 ];
 
-// ✏️ 경력 — 최신순. 성과는 결과(result) 먼저, 행동(action) 뒤에
 export const experiences: Experience[] = [
-  {
-    org: "중견 제조업체 A사",
-    orgNote: "산업용 부품 · 직원 약 300명",
-    start: "2023.03",
-    end: null,
-    role: "경영지원팀 주임",
-    employmentType: "정규직",
-    bullets: [
-      {
-        result: "월 12시간 걸리던 법인카드 정산 대사를 2시간으로 단축(83%↓)",
-        action: "반복 계산을 함수로 표준화하고 Apps Script 자동 대사 툴 제작",
-      },
-      {
-        result: "비용 증빙 누락률 9% → 1% 미만 (월 평균 140건 기준)",
-        action: "제출 체크리스트와 담당자별 자동 알림 메일 도입",
-      },
-      {
-        result: "전사 비품 실사 기간 5일 → 2일 (연 2회)",
-        action: "바코드 라벨과 시트 기반 재고 대장을 통합",
-      },
-      {
-        result: "신규 입사자 서류 처리 3일 → 1일, 연 40명 처리 오류 0건",
-        action: "온보딩 서류 패키지를 템플릿화하고 체크리스트로 관리",
-      },
-    ],
-  },
-  {
-    org: "스타트업 B사",
-    orgNote: "IT 서비스 · 직원 약 40명",
-    start: "2022.01",
-    end: "2023.02",
-    role: "운영지원 담당",
-    employmentType: "정규직",
-    bullets: [
-      {
-        result: "주간 운영 보고서 작성 시간 주 4시간 → 1시간",
-        action: "5개 시트에 흩어진 데이터 취합을 자동화",
-      },
-      {
-        result: "회의 액션아이템 누락 0건을 6개월 유지",
-        action: "회의록 템플릿과 담당·기한 추적표 도입",
-      },
-      {
-        result: "40명 규모 사무실 이전을 일정 내 완료, 예산 8% 절감",
-        action: "업체 견적 12건 비교표 작성 후 조건 협상",
-      },
-    ],
-  },
-  {
-    org: "공공기관 C",
-    orgNote: "지자체 산하 기관",
-    start: "2021.07",
-    end: "2021.08",
-    role: "행정 인턴",
-    employmentType: "인턴",
-    bullets: [
-      {
-        result: "민원 접수 대장 200건 전산화, 입력 오류 0건",
-        action: "입력 규칙을 먼저 정의하고 이중 검토 절차 적용",
-      },
-    ],
-  },
+  { org: "배움나무", start: "2024.04", end: "2025.03", role: "교육운영 인턴", employmentType: "인턴", bullets: [
+    { result: "온라인 강의 등록과 강의 일정 확인 지원", action: "강의 개설 과정에서 확인할 항목을 체크리스트로 작성해 사용" },
+    { result: "수강생 명단·출결 자료 정리와 문의 분류", action: "반복되는 문의를 유형별로 정리해 운영팀이 함께 확인할 수 있는 문서 작성" },
+    { result: "만족도 설문 응답과 주요 의견 정리", action: "Google Sheets로 응답을 정리하고 긍정 의견과 개선 요청으로 구분" },
+  ] },
+  { org: "에듀대학교 학생지원처", start: "2023.03", end: "2023.06", role: "근로장학생", employmentType: "인턴", bullets: [
+    { result: "장학금·학사 일정 문의를 담당 부서별로 분류", action: "신청 서류의 기본 항목 작성 여부를 확인" },
+    { result: "교내 프로그램 신청자 명단과 참여 안내 문자 발송 자료 준비", action: "개인정보가 포함된 명단은 담당자에게만 전달하고 외부에 공유하지 않음" },
+  ] },
 ];
 
-// ✏️ 학력
-export const education: Education[] = [
-  {
-    school: "한국대학교",
-    major: "경영학과",
-    degree: "학사",
-    start: "2018.03",
-    end: "2022.02",
-  },
-];
-
-// ✏️ 자격·어학 — 최신순. 자격명 또는 점수, 발급기관, 취득연월
+export const education: Education[] = [{ school: "에듀대학교", major: "경영학과", end: "2024.02", note: "졸업 · 경영정보시스템, 인적자원관리, 소비자행동론, 마케팅원론 수강" }];
 export const certifications: Certification[] = [
-  {
-    kind: "자격",
-    name: "ADsP (데이터분석 준전문가)",
-    issuer: "한국데이터산업진흥원",
-    date: "2025.06",
-  },
-  { kind: "어학", name: "TOEIC", score: "865", issuer: "ETS", date: "2024.03" },
-  {
-    kind: "자격",
-    name: "ERP정보관리사 인사 2급",
-    issuer: "한국생산성본부",
-    date: "2022.05",
-  },
-  {
-    kind: "자격",
-    name: "전산회계 1급",
-    issuer: "한국세무사회",
-    date: "2021.11",
-  },
-  {
-    kind: "자격",
-    name: "컴퓨터활용능력 1급",
-    issuer: "대한상공회의소",
-    date: "2021.08",
-  },
+  { kind: "자격", name: "컴퓨터활용능력 2급", date: "2023" },
+  { kind: "자격", name: "워드프로세서", date: "2022" },
+  { kind: "어학", name: "TOEIC", score: "760", date: "2024.01" },
+  { kind: "교육", name: "교육기관 행정 실무 과정 (24시간)", issuer: "지역 청년센터", date: "2024.03" },
 ];
 
-// ✏️ 직무 스킬 — 직무 연관 순으로 정렬, 활용 맥락을 함께
 export const skillGroups: SkillGroup[] = [
-  {
-    category: "문서·데이터",
-    items: [
-      {
-        name: "Excel · Google Sheets",
-        context: "VLOOKUP·피벗·배열수식으로 정산 대사와 재고 대장 관리",
-      },
-      { name: "한글 · Word", context: "공문, 계약서, 증빙 서식 작성·관리" },
-      { name: "PowerPoint", context: "주간·월간 운영 보고 자료" },
-      { name: "더존 Smart A", context: "전표 입력, 증빙 관리, 월 마감 보조" },
-    ],
-  },
-  {
-    category: "협업·커뮤니케이션",
-    items: [
-      {
-        name: "그룹웨어 전자결재",
-        context: "결재선 설계, 규정 안내, 반려 사유 정리",
-      },
-      { name: "Slack · Notion", context: "업무 배분, 회의록, 진행 현황 공유" },
-      {
-        name: "Google Workspace",
-        context: "공유 드라이브 권한, 양식 관리, 캘린더 운영",
-      },
-    ],
-  },
-  {
-    category: "AI·자동화",
-    items: [
-      {
-        name: "Google Apps Script",
-        context: "시트 자동화, 알림 메일, 승인 단계 구현",
-      },
-      {
-        name: "ChatGPT · Claude",
-        context: "문서 초안, 분류·요약 — 결과는 반드시 검토 후 사용",
-      },
-      { name: "Python 기초", context: "pandas로 다중 시트 취합·정합성 검사" },
-      { name: "Looker Studio", context: "운영 대시보드 제작·공유" },
-    ],
-  },
+  { category: "문서·표·일정", items: [
+    { name: "Microsoft Word", context: "공지문, 회의록, 보고서 작성" }, { name: "Microsoft Excel", context: "명단 및 일정 정리, 표 작성, 기본 함수와 필터 사용" }, { name: "Microsoft PowerPoint", context: "수업 및 팀 프로젝트 발표 자료 제작" }, { name: "한글", context: "교내 제출 문서와 안내문 작성" }, { name: "Google Docs", context: "문서 공동 작성과 의견 반영" }, { name: "Google Sheets", context: "신청자 명단, 설문 결과, 일정 정리" },
+  ] },
+  { category: "설문·협업", items: [
+    { name: "Google Forms", context: "행사 신청 및 만족도 설문 제작" }, { name: "Notion", context: "회의 기록, 체크리스트, 프로젝트 자료 정리" }, { name: "Slack", context: "인턴 근무 중 업무 대화와 자료 공유" }, { name: "Zoom", context: "온라인 회의 참여와 교육 일정 확인" }, { name: "미리캔버스", context: "행사 안내 카드뉴스 제작" },
+  ] },
+  { category: "AI 활용", items: [{ name: "ChatGPT", context: "문서 초안 작성, 항목 분류, 맞춤법 확인에 사용하고 결과는 직접 검토" }] },
 ];
 
-// ✏️ 대외활동·수상 — 활동명, 기관, 기간, 한 줄 성과
 export const activities: Activity[] = [
-  {
-    kind: "수상",
-    name: "우수사원 표창",
-    org: "중견 제조업체 A사",
-    start: "2025.12",
-    result: "정산 프로세스 개선으로 연 144시간 절감 기여",
-  },
-  {
-    kind: "활동",
-    name: "사내 업무 자동화 스터디 운영",
-    org: "중견 제조업체 A사",
-    start: "2025.03",
-    end: "2026.06",
-    result: "12명 참여, 자동화 사례 6건을 사내에 공유",
-  },
-  {
-    kind: "활동",
-    name: "경영학회 총무",
-    org: "한국대학교",
-    start: "2020.03",
-    end: "2021.02",
-    result: "연간 예산 집행·정산 오류 0건",
-  },
+  { kind: "수상", name: "비교과 프로그램 우수 참여자 표창", org: "에듀대학교", start: "2023.12" },
+  { kind: "활동", name: "에듀대학교 홍보대사", org: "에듀대학교", start: "2023.07", end: "2023.12", result: "학교 행사 안내 게시물 작성, 참여자 명단 확인, 행사 당일 방문자 안내를 담당했습니다." },
+  { kind: "활동", name: "경영학과 학생회 총무부원", org: "에듀대학교", start: "2022.03", end: "2022.12", result: "행사 물품 목록과 구매 내역·영수증을 정리하고, 신청 명단과 회의 내용을 기록했습니다." },
+  { kind: "활동", name: "신입생 비교과 프로그램 운영 개선안", org: "에듀대학교 팀 프로젝트", period: "대학교 4학년", result: "4인 팀에서 설문 문항 작성, 응답 결과 정리, 발표 자료 제작을 담당했습니다. 학생 32명 설문을 바탕으로 신청 방법 안내, 일정 사전 공지, 만족도 조사 절차를 정리했습니다." },
 ];
 
-// 헤더 앵커 내비게이션 — 섹션을 빼거나 순서를 바꾸지 않는 한 수정 불필요
 export const nav: NavItem[] = [
-  { href: "#competencies", label: "역량" },
-  { href: "#experience", label: "경력" },
-  { href: "#tools", label: "AI 업무툴" },
-  { href: "#education", label: "학력·자격" },
-  { href: "#skills", label: "스킬" },
-  { href: "#contact", label: "연락" },
+  { href: "#competencies", label: "역량" }, { href: "#experience", label: "경력" }, { href: "#tools", label: "AI 업무툴" }, { href: "#education", label: "학력·자격" }, { href: "#skills", label: "스킬" }, { href: "#contact", label: "연락" },
 ];
 
-// 섹션 라벨과 리드 문장 — 보통 수정 불필요
 export const sectionCopy = {
-  competencies: { label: "핵심 역량", index: "STRENGTHS" },
-  experience: { label: "경력", index: "EXPERIENCE" },
-  tools: {
-    label: "AI 업무툴",
-    index: "AI TOOLS",
-    lead: "업무에서 반복되던 문제를 직접 만든 툴로 해결한 기록입니다. 기술 자랑이 아니라, 문제를 정의하고 실수 없이 돌아가게 만든 과정을 보여드립니다.",
-  },
-  education: { label: "학력·자격", index: "EDUCATION" },
-  skills: { label: "직무 스킬", index: "SKILLS" },
-  activities: { label: "대외활동·수상", index: "ACTIVITIES" },
-  contact: {
-    label: "연락",
-    index: "CONTACT",
-    lead: "면접·채용 관련 문의는 이메일로 주세요. 하루 안에 회신드립니다.",
-  },
+  competencies: { label: "핵심 역량", index: "STRENGTHS" }, experience: { label: "경력·인턴", index: "EXPERIENCE" },
+  tools: { label: "AI 업무툴", index: "AI TOOLS", lead: "AI 업무툴 포트폴리오는 강의에서 제작 예정입니다." },
+  education: { label: "학력·자격", index: "EDUCATION" }, skills: { label: "직무 스킬", index: "SKILLS" }, activities: { label: "프로젝트·활동", index: "ACTIVITIES" },
+  contact: { label: "연락", index: "CONTACT", lead: "면접·채용 관련 문의는 이메일로 주세요." },
 } as const;

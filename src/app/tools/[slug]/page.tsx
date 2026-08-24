@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description: tool.tagline,
       url: `/tools/${slug}`,
-      images: [tool.result.mainImage.src],
+      ...(tool.status === "complete" ? { images: [tool.result.mainImage.src] } : {}),
       type: "article",
     },
   };
@@ -130,6 +130,16 @@ export default async function ToolDetail({ params }: Props) {
   const { slug } = await params;
   const tool = getTool(slug);
   if (!tool) notFound();
+
+  if (tool.status === "planned") {
+    return (
+      <main className="fade-in mx-auto w-full max-w-[1120px] flex-1 px-5 py-12 sm:px-8 md:py-16 lg:px-[72px]">
+        <Link href="/#tools" className="font-mono text-[0.72rem] uppercase tracking-[0.08em] text-muted transition-colors hover:text-ink print:hidden">← AI 업무툴</Link>
+        <h1 className="mt-8 text-[2rem] font-[680] tracking-[-0.03em] md:text-[2.75rem]">{tool.title}</h1>
+        <p className="mt-4 text-[1.05rem] leading-[1.7] text-ink-soft">강의에서 제작 예정입니다.</p>
+      </main>
+    );
+  }
 
   const { prev, next } = getAdjacentTools(slug);
   const features = tool.features.slice(0, 3);

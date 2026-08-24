@@ -1,11 +1,25 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { AiTool } from "@/data/tools";
 import { CATEGORY_LABELS } from "@/lib/tools";
 
 export default function ToolCard({ tool }: { tool: AiTool }) {
+  if (tool.status === "planned") {
+    return (
+      <article className="flex flex-col break-inside-avoid bg-surface">
+        <div className="flex aspect-square items-center justify-center border-b border-line bg-ground p-6 text-center font-mono text-[0.72rem] uppercase tracking-[0.12em] text-muted">
+          AI TOOL<br />{tool.title.slice(-2)}
+        </div>
+        <div className="flex flex-1 flex-col gap-[7px] px-4 pb-5 pt-4">
+          <p className="font-mono text-[0.68rem] tracking-[0.08em] text-faint">강의에서 제작 예정</p>
+          <h3 className="text-[1.02rem] font-[620] tracking-[-0.015em]">{tool.title}</h3>
+          <p className="flex-1 break-keep text-[0.86rem] leading-[1.55] text-muted">{tool.tagline}</p>
+        </div>
+      </article>
+    );
+  }
+
   return (
-    <Link
+    <a
       href={`/tools/${tool.slug}`}
       className="group flex flex-col break-inside-avoid bg-surface transition-transform duration-200 hover:-translate-y-[3px]"
     >
@@ -38,6 +52,6 @@ export default function ToolCard({ tool }: { tool: AiTool }) {
           )}
         </div>
       </div>
-    </Link>
+    </a>
   );
 }

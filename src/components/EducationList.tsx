@@ -13,11 +13,11 @@ export default function EducationList() {
       <div className="flex flex-col border-t border-line-strong">
         {education.map((ed) => (
           <div key={`${ed.school}-${ed.start}`} className={ROW}>
-            <span className={PERIOD}>{formatPeriod(ed.start, ed.end)}</span>
+            <span className={PERIOD}>{ed.start ? formatPeriod(ed.start, ed.end) : ed.end}</span>
             <span className="text-[1.02rem] break-keep">
               <b className="font-[620]">{ed.school}</b>{" "}
               <span className="text-muted">
-                — {ed.major} {ed.degree}
+                — {ed.major}{ed.degree ? ` ${ed.degree}` : ""}
               </span>
               {ed.note && (
                 <span className="block text-[0.82rem] text-faint">
@@ -33,7 +33,7 @@ export default function EducationList() {
       {certifications.length > 0 && (
         <>
           <p className="mb-2 mt-10 font-mono text-[0.84rem] font-[600] uppercase tracking-[0.12em] text-ink">
-            자격 · 어학
+            자격 · 어학 · 교육
           </p>
           <div className="flex flex-col border-t border-line-strong">
             {certifications.map((c) => (
@@ -44,7 +44,7 @@ export default function EducationList() {
                     {c.name}
                     {c.score ? ` ${c.score}` : ""}
                   </b>{" "}
-                  <span className="text-muted">— {c.issuer}</span>
+                  {c.issuer && <span className="text-muted">— {c.issuer}</span>}
                 </span>
                 <Pill>{c.kind}</Pill>
               </div>
