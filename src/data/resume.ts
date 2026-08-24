@@ -15,7 +15,7 @@ export const profile: Profile = {
   headline: ["교육 운영을 꼼꼼하게", "지원합니다."],
   lead: "교육 일정과 수강생 정보를 꼼꼼하게 관리하고, 원활한 교육 진행을 지원하는 교육운영 사무 담당자를 목표로 합니다.",
   titles: ["교육운영 인턴 경험", "문서·명단·일정 정리"],
-  profileImage: "/profile.jpg", profileImageAlt: "이에듀 프로필 사진", email: "edu.lee@example.com", location: "서울특별시",
+  profileImage: "/profile.jpg", profileImageAlt: "이에듀 프로필 사진", email: "edu.lee@example.com", location: "서울특별시", siteUrl: "https://my-resume-six-navy.vercel.app",
   links: [{ label: "개인 포트폴리오", href: "https://example-edu-lee-example.notion.site" }],
   seo: { title: "이에듀 — 교육운영 사무직 이력서", description: "교육 일정과 수강생 정보를 관리하고 원활한 교육 진행을 지원하는 교육운영 사무직 지원자 이에듀의 이력서입니다." },
 };
