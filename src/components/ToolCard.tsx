@@ -25,8 +25,8 @@ export default function ToolCard({ tool }: { tool: AiTool }) {
     >
       <div className="relative aspect-square overflow-hidden border-b border-line bg-ground">
         <Image
-          src={tool.result.mainImage.src}
-          alt={tool.result.mainImage.alt}
+          src={tool.images.main.src}
+          alt={tool.images.main.alt}
           fill
           unoptimized
           sizes="(max-width: 520px) 100vw, (max-width: 1024px) 50vw, 33vw"
