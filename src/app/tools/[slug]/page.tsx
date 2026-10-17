@@ -81,7 +81,10 @@ export default async function ToolDetail({ params }: Props) {
         <p className="mt-4 break-keep text-[1.05rem] leading-[1.7] text-ink-soft">{tool.tagline}</p>
         <p className="mt-6 font-mono text-[0.75rem] text-muted">{tool.period} · 단독 제작</p>
         <div className="mt-6 flex flex-wrap gap-2">{tool.stack.map((item) => <span key={item} className="border border-line px-2.5 py-1 font-mono text-[0.68rem] text-muted">{item}</span>)}</div>
-        <div className="mt-6"><CodeLink repoUrl={tool.repoUrl} /></div>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {tool.liveUrl && <a href={tool.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex border border-ink px-4 py-2 font-mono text-[0.75rem] text-ink transition-colors hover:bg-ink hover:text-ground print:hidden">서비스 열기 ↗</a>}
+          <CodeLink repoUrl={tool.repoUrl} />
+        </div>
       </header>
 
       <div className="mt-12">
