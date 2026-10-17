@@ -33,8 +33,8 @@ export const tools: AiTool[] = [
     utility: ["첫 화면의 지표로 이번 주 미입고, 전량 미입고, 지연, 부분입고 규모를 즉시 비교합니다.", "지연이 큰 순서의 확인 목록에서 담당자·거래처·품목·입고 현황을 함께 확인합니다.", "전체 표에서는 단가와 개별 발주금액을 숨기고, 구매 분석에서는 취소 건을 제외한 승인 집계만 보여 줍니다."],
     roles: ["제가 기준일, 예외 판정 규칙, 표시 우선순위와 금액 노출 범위를 정했습니다. 구매 담당자는 원본 시트를 갱신하고, 확인 대상의 후속 조치를 판단합니다.", "생성형 AI를 사용하지 않는 고정 규칙 기반 서비스입니다. 서비스는 행 검증과 예외 집계를 반복 처리하지만, 납기 조정이나 구매 의사결정은 대신하지 않습니다."],
     validation: ["PRD의 160행 기준으로 이번 주 미입고 11건, 전량 미입고 4건, 지연 16건, 부분입고 13건이 계산되는지 확인했습니다.", "시트 응답이 실패해도 화면이 멈추지 않고 목데이터·연결 원인을 구분해 보이며, 잘못된 행은 확인 필요로 제외하도록 구현했습니다."],
-    limitations: ["현재 시트 웹앱은 `rows` 계약 대신 `id` 인수 오류를 반환해, 실제 행을 표시하려면 Apps Script 응답을 복구해야 합니다.", "현황판은 읽기 전용 해석 도구입니다. 납기 변경, 거래처 연락, 입고 확정은 원본 시트와 담당자 확인이 필요합니다."],
-    stack: ["Next.js", "TypeScript", "Google Sheets", "Apps Script"], repoUrl: "https://github.com/jongwoo01/my-dashboard",
+    limitations: ["강의용 샘플 데이터와 고정 기준일을 사용하므로, 실제 오늘의 납기 현황과는 다를 수 있습니다.", "현황판은 읽기 전용 해석 도구입니다. 납기 변경, 거래처 연락, 입고 확정은 원본 시트와 담당자 확인이 필요합니다."],
+    stack: ["Next.js", "TypeScript", "Google Sheets", "Apps Script"], repoUrl: "https://github.com/jongwoo01/my-dashboard", liveUrl: "https://board.leejongwoo.click/",
     images: { main: { src: "/tools/purchase-receipt-exceptions/main.png", alt: "발주·입고 예외 현황판의 필터, 예외 지표와 확인 목록" }, detail: [
       { src: "/tools/purchase-receipt-exceptions/detail/01.png", alt: "지연 발주만 분류한 확인 목록", caption: "지연 탭에서 기준일 이전 입고예정이면서 전량 입고되지 않은 발주를 확인합니다." },
       { src: "/tools/purchase-receipt-exceptions/detail/02.png", alt: "부분입고 발주만 분류한 확인 목록", caption: "부분입고 탭에서 발주수량과 입고수량의 차이를 확인합니다." },
@@ -66,7 +66,7 @@ export const tools: AiTool[] = [
     roles: ["제가 수집 범위, 허용 분류·우선순위, 중복 기준, 일일 호출 한도와 공개 범위를 정했습니다. 담당자는 원문 대조와 실제 해외사업 판단을 맡습니다.", "Gemini는 원문 근거의 구조화된 검토 초안만 만듭니다. AI 결과를 저장해 화면을 새로고침할 때 다시 호출하지 않으며, 최종 결론을 대신하지 않습니다."],
     validation: ["Apps Script 실행 기록, 기사 시트, 공개 화면을 함께 대조하고 두 자료유형의 카드와 원문을 직접 확인하도록 설계했습니다.", "출력값은 허용 분류·우선순위·필수 문장을 코드로 검사하며, 한 자료유형이 실패해도 기존 정상 데이터와 반대 유형 결과를 보존하는 DEGRADED 상태를 표시합니다."],
     limitations: ["AI 분석은 하루 호출 한도와 원문 앞부분 길이 제한 안에서만 실행되며, API·모델 응답 실패 시 결과가 비어 있거나 재시도 상태로 남을 수 있습니다.", "이 서비스는 공개 데이터를 이용한 조사 보조 도구입니다. 원문에 없는 사실을 확정적으로 쓰지 않으며 실제 사업 판단은 담당자의 원문 검토가 필요합니다."],
-    stack: ["Next.js", "Apps Script", "Google Sheets", "Gemini", "KOTRA API"], repoUrl: "https://github.com/jongwoo01/my-news",
+    stack: ["Next.js", "Apps Script", "Google Sheets", "Gemini", "KOTRA API"], repoUrl: "https://github.com/jongwoo01/my-news", liveUrl: "https://news.leejongwoo.click/",
     images: { main: { src: "/tools/global-market-briefing/main.png", alt: "글로벌 해외시장 브리핑의 갱신 시각, 필터와 기사 카드" }, detail: [
       { src: "/tools/global-market-briefing/detail/01.png", alt: "자료유형과 분류로 좁힌 시장 브리핑 기사", caption: "자료유형과 내용 분류로 검토 대상을 좁힐 수 있습니다." },
       { src: "/tools/global-market-briefing/detail/02.png", alt: "AI 분석 초안과 원문 링크가 있는 기사 카드", caption: "AI 초안의 변화·확인사항을 원문 링크와 함께 확인합니다." },
@@ -82,7 +82,7 @@ export const tools: AiTool[] = [
     roles: ["제가 수집 대상, 검색 키워드, 72시간 범위, 중복·갱신 기준과 최대 신규 추가 수를 정했습니다. 담당자는 입찰 적합성 검토와 실제 대응을 판단합니다.", "생성형 AI를 사용하지 않는 결정론적 수집 자동화입니다. 서비스는 API 조회·정렬·변경 감지·실행기록을 반복 처리하지만 입찰 여부를 결정하지 않습니다."],
     validation: ["수집 실행마다 API 조회 수, 필터 통과 수, 신규 추가·기존 갱신·동일값 건너뜀·보류 후보 수를 실행기록에 남겨 결과를 확인합니다.", "로그인 후 표시되는 공고 목록에서 마감 임박순, 검색·필터·정렬과 원문 링크가 실제 저장값을 기준으로 동작하는지 점검했습니다."],
     limitations: ["용역 공고와 정해진 키워드, 최근 72시간의 마감 전 공고만 대상으로 하므로 다른 분야·키워드의 공고는 포착하지 못할 수 있습니다.", "하루 1회 수집과 신규 30건 제한이 있으며, API 원문 변경·접근 오류·마감 시각은 원문 공고에서 다시 확인해야 합니다."],
-    stack: ["Next.js", "Apps Script", "Google Sheets", "나라장터 API"], repoUrl: "https://github.com/jongwoo01/my-watch",
+    stack: ["Next.js", "Apps Script", "Google Sheets", "나라장터 API"], repoUrl: "https://github.com/jongwoo01/my-watch", liveUrl: "https://watch.leejongwoo.click/",
     images: { main: { src: "/tools/g2b-bid-watch/main.png", alt: "나라장터 공고 관제의 공고 현황 요약과 목록" }, detail: [
       { src: "/tools/g2b-bid-watch/detail/01.png", alt: "마감일 필터를 적용한 나라장터 공고 목록", caption: "24시간 또는 3일 이내 마감 공고로 검토 범위를 좁힙니다." },
       { src: "/tools/g2b-bid-watch/detail/02.png", alt: "정렬 기준을 바꾼 나라장터 공고 목록", caption: "마감 임박순, 추정가격 높은 순, 최근 수집 순으로 확인할 수 있습니다." },

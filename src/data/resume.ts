@@ -16,7 +16,7 @@ export const profile: Profile = {
   lead: "교육 일정과 수강생 정보를 꼼꼼하게 관리하고, 원활한 교육 진행을 지원하는 교육운영 사무 담당자를 목표로 합니다.",
   titles: ["교육운영 인턴 경험", "문서·명단·일정 정리"],
   profileImage: "/profile.jpg", profileImageAlt: "이에듀 프로필 사진", email: "edu.lee@example.com", location: "서울특별시", siteUrl: "https://resume.leejongwoo.click",
-  links: [{ label: "개인 포트폴리오", href: "https://example-edu-lee-example.notion.site" }],
+  links: [{ label: "AI 업무툴 포트폴리오", href: "#tools" }],
   seo: { title: "이에듀 — 교육운영 사무직 이력서", description: "교육 일정과 수강생 정보를 관리하고 원활한 교육 진행을 지원하는 교육운영 사무직 지원자 이에듀의 이력서입니다." },
 };
 
@@ -75,7 +75,7 @@ export const nav: NavItem[] = [
 
 export const sectionCopy = {
   competencies: { label: "핵심 역량", index: "STRENGTHS" }, experience: { label: "경력·인턴", index: "EXPERIENCE" },
-  tools: { label: "AI 업무툴", index: "AI TOOLS", lead: "AI 업무툴 포트폴리오는 강의에서 제작 예정입니다." },
+  tools: { label: "AI 업무툴", index: "AI TOOLS", lead: "강의에서 제작한 업무툴의 결과와 실제 작동 화면을 확인할 수 있습니다." },
   education: { label: "학력·자격", index: "EDUCATION" }, skills: { label: "직무 스킬", index: "SKILLS" }, activities: { label: "프로젝트·활동", index: "ACTIVITIES" },
   contact: { label: "연락", index: "CONTACT", lead: "면접·채용 관련 문의는 이메일로 주세요." },
 } as const;
